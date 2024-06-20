@@ -1,0 +1,4 @@
+com.tj.cloud.feign.CloudFeignAutoConfiguration
+com.tj.cloud.feign.retry.CloudFeignRetryAutoConfiguration
+com.tj.cloud.feign.sentinel.SentinelAutoConfiguration
+com.tj.cloud.feign.sentinel.handle.GlobalBizExceptionHandler
