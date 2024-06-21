@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <version>1.0.0</version>
+    <groupId>com.tj.cloud</groupId>
+    <artifactId>cloud-common-bom</artifactId>
+    <packaging>pom</packaging>
+
+    <properties>
+        <cloud.common.version>${project.version}</cloud.common.version>
+        <spring-boot.version>2.7.6</spring-boot.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <log4j2.version>2.17.1</log4j2.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <git.commit.plugin>4.9.9</git.commit.plugin>
+        <spring.checkstyle.plugin>0.0.34</spring.checkstyle.plugin>
+        <fastjson.version>1.2.83</fastjson.version>
+        <fasterxml.version>2.15.4</fasterxml.version>
+        <springdoc.version>1.6.9</springdoc.version>
+        <swagger.core.version>2.2.0</swagger.core.version>
+        <mybatis-plus.version>3.5.2</mybatis-plus.version>
+        <mybatis.version>3.5.9</mybatis.version>
+        <mybatis-spring.version>2.1.2</mybatis-spring.version>
+        <mysql.version>8.0.31</mysql.version>
+        <seata.version>1.5.2</seata.version>
+        <excel.version>2.3.0</excel.version>
+        <asm.version>7.1</asm.version>
+        <oss.version>1.0.5</oss.version>
+        <sms.version>2.0.2</sms.version>
+        <jaxb.version>2.3.5</jaxb.version>
+        <hutool.version>5.8.10</hutool.version>
+        <mica.version>2.7.4</mica.version>
+        <sentinel.version>1.8.4</sentinel.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <commons-lang.version>2.6</commons-lang.version>
+        <fastjson2.version>2.0.47</fastjson2.version>
+        <spring.version>5.3.11</spring.version>
+        <druid.version>1.2.22</druid.version>
+
+
+        <kafka.version>3.7.0</kafka.version>
+        <pulsar.version>3.1.0</pulsar.version>
+        <rabbitmq.version>5.20.0</rabbitmq.version>
+        <rabbitmq.spring.version>2.4.2</rabbitmq.spring.version>
+        <rocketmq.version>5.2.0</rocketmq.version>
+        <knife4j-spring-ui.version>2.0.5</knife4j-spring-ui.version>
+
+    </properties>
+
+    <!-- 定义全局jar版本,模块使用需要再次引入但不用写版本号-->
+    <dependencyManagement>
+        <dependencies>
+
+            <!-- 通用模块依赖 begin-->
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>cloud-common-core</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>common-cloud-cache</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>common-cloud-datasource</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>common-cloud-job</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>common-cloud-log</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>common-cloud-mybatis</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>common-cloud-security</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>common-cloud-feign</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>common-cloud-swagger</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>common-cloud-seata</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>common-cloud-xss</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>common-cloud-gray</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>common-cloud-gateway</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>common-cloud-jms</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>common-cloud-rabbitmq</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>common-cloud-oss</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>common-cloud-uid</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>cloud-upms-api</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>cloud-system-api</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>cloud-dynamic-api</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
+                <artifactId>cloud-dynamic-biz</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <!-- 通用模块依赖 end-->
+
+            <!-- mybatis  jdbc-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis-spring.version}</version>
+            </dependency>
+
+            <!-- durid 连接池-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!-- mysql 连接器-->
+            <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <!--springdoc -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-webmvc-core</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-webflux-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-security</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+            <!--fastjson 版本-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${fasterxml.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${fasterxml.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${fasterxml.version}</version>
+            </dependency>
+            <!--  阿里云短信下发 -->
+            <dependency>
+                <groupId>io.springboot.sms</groupId>
+                <artifactId>aliyun-sms-spring-boot-starter</artifactId>
+                <version>${sms.version}</version>
+            </dependency>
+            <!--commons 版本-->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>${commons-lang.version}</version>
+            </dependency>
+            <!--fastjson2-->
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson2.version}</version>
+            </dependency>
+            <!--  seata kryo 序列化-->
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-serializer-kryo</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+            <!--orm 相关-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-annotation</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!--hutool bom 工具类-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-bom</artifactId>
+                <version>${hutool.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--mica bom 工具类-->
+            <dependency>
+                <groupId>net.dreamlu</groupId>
+                <artifactId>mica-bom</artifactId>
+                <version>${mica.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- kafka -->
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka.version}</version>
+            </dependency>
+
+            <!-- pulsar -->
+            <dependency>
+                <groupId>org.apache.pulsar</groupId>
+                <artifactId>pulsar-client</artifactId>
+                <version>${pulsar.version}</version>
+            </dependency>
+
+            <!-- rabbitmq -->
+            <dependency>
+                <groupId>com.rabbitmq</groupId>
+                <artifactId>amqp-client</artifactId>
+                <version>${rabbitmq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.amqp</groupId>
+                <artifactId>spring-rabbit</artifactId>
+                <version>${rabbitmq.spring.version}</version>
+            </dependency>
+
+
+            <!-- rocketmq -->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>${rocketmq.version}</version>
+            </dependency>
+            <!--web 模块-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+                <exclusions>
+                    <!--排除tomcat依赖-->
+                    <exclusion>
+                        <artifactId>spring-boot-starter-tomcat</artifactId>
+                        <groupId>org.springframework.boot</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- swagger -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-ui</artifactId>
+                <version>${knife4j-spring-ui.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${knife4j-spring-ui.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <!--打包jar 与git commit 关联插件-->
+            <plugin>
+                <groupId>io.github.git-commit-id</groupId>
+                <artifactId>git-commit-id-maven-plugin</artifactId>
+                <version>${git.commit.plugin}</version>
+            </plugin>
+            <!--代码格式插件，默认使用spring 规则-->
+            <plugin>
+                <groupId>io.spring.javaformat</groupId>
+                <artifactId>spring-javaformat-maven-plugin</artifactId>
+                <version>${spring.checkstyle.plugin}</version>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

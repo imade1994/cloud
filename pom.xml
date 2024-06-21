@@ -12,15 +12,16 @@
 
 
     <modules>
-        <module>cloud_common</module>
-        <module>cloud_upms</module>
-        <module>cloud_gateway</module>
-        <module>cloud_auth</module>
-        <module>cloud_system</module>
+        <module>cloud-common</module>
+        <module>cloud-upms</module>
+        <module>cloud-gateway</module>
+        <module>cloud-auth</module>
+        <module>cloud-system</module>
+        <module>cloud-dynamic</module>
     </modules>
 
     <properties>
-        <spring-boot.version>2.7.18</spring-boot.version>
+        <spring-boot.version>2.7.6</spring-boot.version>
         <spring-cloud.version>2021.0.8</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.6.0</spring-cloud-alibaba.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -45,6 +46,11 @@
         <docker.password>password</docker.password>
         <git.commit.plugin>4.9.9</git.commit.plugin>
         <spring.checkstyle.plugin>0.0.34</spring.checkstyle.plugin>
+        <log4j.version>1.2.17</log4j.version>
+        <log4j-over-slf4j.version>1.7.30</log4j-over-slf4j.version>
+        <apache-log4j.version>2.17.1</apache-log4j.version>
+
+        <logstash-logback-encoder.version>6.5</logstash-logback-encoder.version>
     </properties>
 
     <!-- 以下依赖 全局所有的模块都会引入  -->
@@ -121,6 +127,41 @@
                 <version>${spring-cloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!--日志类依赖-->
+            <!--log4j-->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <!--  2.0 <= Apache log4j2 <= 2.14.1 升级覆盖版本      -->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${apache-log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${apache-log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-to-slf4j</artifactId>
+                <version>${apache-log4j.version}</version>
+            </dependency>
+            <!-- logback -->
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash-logback-encoder.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>log4j-over-slf4j</artifactId>
+                <version>${log4j-over-slf4j.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
