@@ -3,6 +3,8 @@ package com.tj.cloud.uid.worker.entity;
 
 import com.tj.cloud.core.utils.ToStringUtils;
 import com.tj.cloud.uid.worker.WorkerNodeType;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,6 +12,8 @@ import java.util.Date;
 /**
  * * @Author codingMan_tj * @Date 2024/4/1 13:32 * @version v1.0.0 * @desc 机器实体
  **/
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class WorkerNodeEntity extends ToStringUtils implements Serializable {
 
 	private static final long serialVersionUID = 1L;
