@@ -82,14 +82,12 @@ public class CloudRemoteRegisteredClientRepository implements RegisteredClientRe
 	@Cacheable(value = CacheConstants.CLIENT_DETAILS_KEY, key = "#clientId", unless = "#result == null")
 	public RegisteredClient findByClientId(String clientId) {
 
-		SysOauthClientDetails clientDetails = RetOps
-				.of(clientDetailsService.getClientDetailsById(clientId, CommonConstant.FROM_IN)).getData()
+		SysOauthClientDetails clientDetails = RetOps.of(clientDetailsService.getClientDetailsById(clientId)).getData()
 				.orElseThrow(() -> new OAuth2AuthorizationCodeRequestAuthenticationException(
 						new OAuth2Error("客户端查询异常，请检查数据库链接"), null));
 
-		RegisteredClient.Builder builder = RegisteredClient.withId(clientDetails.getClientId())
-				.clientId(clientDetails.getClientId())
-				.clientSecret(CommonConstant.NOOP + clientDetails.getClientSecret())
+		RegisteredClient.Builder builder = RegisteredClient.withId(clientDetails.getId())
+				.clientId(clientDetails.getId()).clientSecret(CommonConstant.NOOP + clientDetails.getClientSecret())
 				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC);
 
 		for (String authorizedGrantType : clientDetails.getAuthorizedGrantTypes()) {

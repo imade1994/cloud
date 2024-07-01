@@ -1,6 +1,6 @@
 package com.tj.cloud.security.login.entity;
 
-import com.tj.cloud.core.model.authentication.vo.User;
+import com.tj.cloud.upms.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

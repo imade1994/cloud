@@ -10,21 +10,21 @@ public enum DataSourceReplicaLoadBalanceAlgorithmType {
 	/**
 	 * Round-robin replica load-balance algorithm.
 	 */
-	ROUND_ROBIN("com.hlxd.cloud.db.core.readwrite.loadbalance.impl.RoundRobinReplicaLoadBalanceAlgorithm"),
+	ROUND_ROBIN("com.tj.cloud.datasource.readwrite.loadbalance.impl.RoundRobinReplicaLoadBalanceAlgorithm"),
 
 	/**
 	 * Random replica load-balance algorithm
 	 */
-	RANDOM("com.hlxd.cloud.db.core.readwrite.loadbalance.impl.RandomReplicaLoadBalanceAlgorithm");
+	RANDOM("com.tj.cloud.datasource.readwrite.loadbalance.impl.RandomReplicaLoadBalanceAlgorithm");
 
 	/**
 	 * clazz
 	 */
 	private final String className;
 
-	HlDataSourceReplicaLoadBalanceAlgorithmType(String className) {
-        this.className = className;
-    }
+	DataSourceReplicaLoadBalanceAlgorithmType(String className) {
+		this.className = className;
+	}
 
 	public Class<?> loadClass() {
 		try {

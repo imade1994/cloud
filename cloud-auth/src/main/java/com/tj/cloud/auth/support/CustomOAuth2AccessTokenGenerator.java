@@ -19,33 +19,30 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * * @Author codingMan_tj
- * * @Date 2024/4/7 9:59
- * * @version v1.0.0
- * * @desc
+ * * @Author codingMan_tj * @Date 2024/4/7 9:59 * @version v1.0.0 * @desc
  **/
 public class CustomOAuth2AccessTokenGenerator implements OAuth2TokenGenerator<OAuth2AccessToken> {
 
-    private OAuth2TokenCustomizer<OAuth2TokenClaimsContext> accessTokenCustomizer;
+	private OAuth2TokenCustomizer<OAuth2TokenClaimsContext> accessTokenCustomizer;
 
-    @Nullable
-    @Override
-    public OAuth2AccessToken generate(OAuth2TokenContext context) {
-        if (!OAuth2TokenType.ACCESS_TOKEN.equals(context.getTokenType()) || !OAuth2TokenFormat.REFERENCE
-                .equals(context.getRegisteredClient().getTokenSettings().getAccessTokenFormat())) {
-            return null;
-        }
+	@Nullable
+	@Override
+	public OAuth2AccessToken generate(OAuth2TokenContext context) {
+		if (!OAuth2TokenType.ACCESS_TOKEN.equals(context.getTokenType()) || !OAuth2TokenFormat.REFERENCE
+				.equals(context.getRegisteredClient().getTokenSettings().getAccessTokenFormat())) {
+			return null;
+		}
 
-        String issuer = null;
-        if (context.getAuthorizationServerContext() != null) {
-            issuer = context.getAuthorizationServerContext().getIssuer();
-        }
-        RegisteredClient registeredClient = context.getRegisteredClient();
+		String issuer = null;
+		if (context.getAuthorizationServerContext() != null) {
+			issuer = context.getAuthorizationServerContext().getIssuer();
+		}
+		RegisteredClient registeredClient = context.getRegisteredClient();
 
-        Instant issuedAt = Instant.now();
-        Instant expiresAt = issuedAt.plus(registeredClient.getTokenSettings().getAccessTokenTimeToLive());
+		Instant issuedAt = Instant.now();
+		Instant expiresAt = issuedAt.plus(registeredClient.getTokenSettings().getAccessTokenTimeToLive());
 
-        // @formatter:off
+		// @formatter:off
         OAuth2TokenClaimsSet.Builder claimsBuilder = OAuth2TokenClaimsSet.builder();
         if (StringUtils.hasText(issuer)) {
             claimsBuilder.issuer(issuer);
@@ -62,8 +59,8 @@ public class CustomOAuth2AccessTokenGenerator implements OAuth2TokenGenerator<OA
         }
         // @formatter:on
 
-        if (this.accessTokenCustomizer != null) {
-            // @formatter:off
+		if (this.accessTokenCustomizer != null) {
+			// @formatter:off
             OAuth2TokenClaimsContext.Builder accessTokenContextBuilder = OAuth2TokenClaimsContext.with(claimsBuilder)
                     .registeredClient(context.getRegisteredClient())
                     .principal(context.getPrincipal())
@@ -79,42 +76,43 @@ public class CustomOAuth2AccessTokenGenerator implements OAuth2TokenGenerator<OA
             }
             // @formatter:on
 
-            OAuth2TokenClaimsContext accessTokenContext = accessTokenContextBuilder.build();
-            this.accessTokenCustomizer.customize(accessTokenContext);
-        }
+			OAuth2TokenClaimsContext accessTokenContext = accessTokenContextBuilder.build();
+			this.accessTokenCustomizer.customize(accessTokenContext);
+		}
 
-        OAuth2TokenClaimsSet accessTokenClaimsSet = claimsBuilder.build();
-        return new CustomOAuth2AccessTokenGenerator.OAuth2AccessTokenClaims(OAuth2AccessToken.TokenType.BEARER,
-                UUID.randomUUID().toString(), accessTokenClaimsSet.getIssuedAt(), accessTokenClaimsSet.getExpiresAt(),
-                context.getAuthorizedScopes(), accessTokenClaimsSet.getClaims());
-    }
+		OAuth2TokenClaimsSet accessTokenClaimsSet = claimsBuilder.build();
+		return new CustomOAuth2AccessTokenGenerator.OAuth2AccessTokenClaims(OAuth2AccessToken.TokenType.BEARER,
+				UUID.randomUUID().toString(), accessTokenClaimsSet.getIssuedAt(), accessTokenClaimsSet.getExpiresAt(),
+				context.getAuthorizedScopes(), accessTokenClaimsSet.getClaims());
+	}
 
-    /**
-     * Sets the {@link OAuth2TokenCustomizer} that customizes the
-     * {@link OAuth2TokenClaimsContext#getClaims() claims} for the
-     * {@link OAuth2AccessToken}.
-     * @param accessTokenCustomizer the {@link OAuth2TokenCustomizer} that customizes the
-     * claims for the {@code OAuth2AccessToken}
-     */
-    public void setAccessTokenCustomizer(OAuth2TokenCustomizer<OAuth2TokenClaimsContext> accessTokenCustomizer) {
-        Assert.notNull(accessTokenCustomizer, "accessTokenCustomizer cannot be null");
-        this.accessTokenCustomizer = accessTokenCustomizer;
-    }
+	/**
+	 * Sets the {@link OAuth2TokenCustomizer} that customizes the
+	 * {@link OAuth2TokenClaimsContext#getClaims() claims} for the
+	 * {@link OAuth2AccessToken}.
+	 * @param accessTokenCustomizer the {@link OAuth2TokenCustomizer} that customizes the
+	 * claims for the {@code OAuth2AccessToken}
+	 */
+	public void setAccessTokenCustomizer(OAuth2TokenCustomizer<OAuth2TokenClaimsContext> accessTokenCustomizer) {
+		Assert.notNull(accessTokenCustomizer, "accessTokenCustomizer cannot be null");
+		this.accessTokenCustomizer = accessTokenCustomizer;
+	}
 
-    private static final class OAuth2AccessTokenClaims extends OAuth2AccessToken implements ClaimAccessor {
+	private static final class OAuth2AccessTokenClaims extends OAuth2AccessToken implements ClaimAccessor {
 
-        private final Map<String, Object> claims;
+		private final Map<String, Object> claims;
 
-        private OAuth2AccessTokenClaims(TokenType tokenType, String tokenValue, Instant issuedAt, Instant expiresAt,
-                                        Set<String> scopes, Map<String, Object> claims) {
-            super(tokenType, tokenValue, issuedAt, expiresAt, scopes);
-            this.claims = claims;
-        }
+		private OAuth2AccessTokenClaims(TokenType tokenType, String tokenValue, Instant issuedAt, Instant expiresAt,
+				Set<String> scopes, Map<String, Object> claims) {
+			super(tokenType, tokenValue, issuedAt, expiresAt, scopes);
+			this.claims = claims;
+		}
 
-        @Override
-        public Map<String, Object> getClaims() {
-            return this.claims;
-        }
+		@Override
+		public Map<String, Object> getClaims() {
+			return this.claims;
+		}
 
-    }
+	}
+
 }

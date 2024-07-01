@@ -19,6 +19,8 @@ public interface CommonConstant {
 
 	String FROM_IN = "Y";
 
+	String HEADER_FROM_IN = FROM + "=" + FROM_IN;
+
 	String UTF8 = "UTF-8";
 
 	String CONTENT_TYPE = "content-type";
@@ -107,5 +109,20 @@ public interface CommonConstant {
 	 * header 中版本信息
 	 */
 	String VERSION = "VERSION";
+
+	/**
+	 * 当前页
+	 */
+	String CURRENT = "current";
+
+	/**
+	 * size
+	 */
+	String SIZE = "size";
+
+	/**
+	 * 请求开始时间
+	 */
+	String REQUEST_START_TIME = "REQUEST-START-TIME";
 
 }

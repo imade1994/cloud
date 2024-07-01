@@ -105,4 +105,9 @@ public interface SecurityConstant {
 	 */
 	String DETAILS_USER_ID = "user_id";
 
+	/**
+	 * 手机号登录
+	 */
+	String APP = "app";
+
 }

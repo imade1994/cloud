@@ -15,7 +15,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class GlobalBizExceptionHandler {
 	 */
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public CloudResult handleGlobalException(Exception e) {
+	public CloudResult<String> handleGlobalException(Exception e) {
 		log.error("全局异常信息 ex={}", e.getMessage(), e);
 
 		// 业务异常交由 sentinel 记录
@@ -55,7 +54,7 @@ public class GlobalBizExceptionHandler {
 	 */
 	@ExceptionHandler(IllegalArgumentException.class)
 	@ResponseStatus(HttpStatus.OK)
-	public CloudResult handleIllegalArgumentException(IllegalArgumentException exception) {
+	public CloudResult<String> handleIllegalArgumentException(IllegalArgumentException exception) {
 		log.error("非法参数,ex = {}", exception.getMessage(), exception);
 		return CloudResult.failed(exception.getMessage());
 	}
@@ -67,7 +66,7 @@ public class GlobalBizExceptionHandler {
 	 */
 	@ExceptionHandler(AccessDeniedException.class)
 	@ResponseStatus(HttpStatus.FORBIDDEN)
-	public CloudResult handleAccessDeniedException(AccessDeniedException e) {
+	public CloudResult<String> handleAccessDeniedException(AccessDeniedException e) {
 		String msg = SpringSecurityMessageSource.getAccessor().getMessage("AbstractAccessDecisionManager.accessDenied",
 				e.getMessage());
 		log.warn("拒绝授权异常信息 ex={}", msg);
@@ -81,7 +80,7 @@ public class GlobalBizExceptionHandler {
 	 */
 	@ExceptionHandler({ MethodArgumentNotValidException.class })
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public CloudResult handleBodyValidException(MethodArgumentNotValidException exception) {
+	public CloudResult<String> handleBodyValidException(MethodArgumentNotValidException exception) {
 		List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
 		log.warn("参数绑定异常,ex = {}", fieldErrors.get(0).getDefaultMessage());
 		return CloudResult
@@ -95,25 +94,10 @@ public class GlobalBizExceptionHandler {
 	 */
 	@ExceptionHandler({ BindException.class })
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public CloudResult bindExceptionHandler(BindException exception) {
+	public CloudResult<String> bindExceptionHandler(BindException exception) {
 		List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
 		log.warn("参数绑定异常,ex = {}", fieldErrors.get(0).getDefaultMessage());
 		return CloudResult.failed(fieldErrors.get(0).getDefaultMessage());
-	}
-
-	/**
-	 * 保持和低版本请求路径不存在的行为一致
-	 * <p>
-	 * <a href="https://github.com/spring-projects/spring-boot/issues/38733">[Spring Boot
-	 * 3.2.0] 404 Not Found behavior #38733</a>
-	 * @param exception
-	 * @return R
-	 */
-	@ExceptionHandler({ NoResourceFoundException.class })
-	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public CloudResult bindExceptionHandler(NoResourceFoundException exception) {
-		log.debug("请求路径 404 {}", exception.getMessage());
-		return CloudResult.failed(exception.getMessage());
 	}
 
 }

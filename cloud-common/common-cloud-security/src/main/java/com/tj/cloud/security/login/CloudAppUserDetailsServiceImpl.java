@@ -3,8 +3,8 @@ package com.tj.cloud.security.login;
 import com.tj.cloud.core.abs.ICache;
 import com.tj.cloud.core.constant.CommonConstant;
 import com.tj.cloud.core.http.CloudResult;
-import com.tj.cloud.core.model.authentication.dto.UserDTO;
-import com.tj.cloud.core.model.authentication.pojo.UserInfoPojo;
+import com.tj.cloud.upms.dto.UserDTO;
+import com.tj.cloud.upms.pojo.UserInfoPojo;
 import com.tj.cloud.security.constant.SecurityConstant;
 import com.tj.cloud.security.login.entity.LoginUser;
 import com.tj.cloud.security.login.service.CloudUserDetailsService;
@@ -36,9 +36,7 @@ public class CloudAppUserDetailsServiceImpl implements CloudUserDetailsService {
 		if (!ObjectUtils.isEmpty(phone)) {
 			return loginUser;
 		}
-		UserDTO userDTO = new UserDTO();
-		userDTO.setMobile(Integer.valueOf(phone));
-		CloudResult<UserInfoPojo> result = remoteUserService.info(userDTO, CommonConstant.FROM_IN);
+		CloudResult<UserInfoPojo> result = remoteUserService.infoByMobile(phone);
 		UserDetails userDetails = getUserDetails(result);
 		iCache.addToRegion(SecurityConstant.SECURITY_CACHE_USER_DETAILS, phone, userDetails);
 		return userDetails;

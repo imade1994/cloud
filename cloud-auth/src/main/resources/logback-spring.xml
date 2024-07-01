@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <property name="CONSOLE_LOG_PATTERN" value="${CONSOLE_LOG_PATTERN:-%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+    <property name="CONSOLE_LOG_CHARSET" value="${CONSOLE_LOG_CHARSET:-default}"/>
+
+    <!--日志文件存储位置 -->
+    <property name="LOG_FILE_PATH" value="/tmp/log/"/>
+
+    <!--历史日志文件存储位置 -->
+    <property name="LOG_FILE_HISTORY_PATH" value="history/"/>
+
+    <!--启动日志与控制台日志文件-->
+    <property name="JSON_LOG_FILE_NAME" value="spring_applog"/>
+    <property name="JSON_LOG_ERROR_FILE_NAME" value="error_spring_applog"/>
+
+
+    <!--单个日志文件最大100M-->
+    <property name="MAX_FILE_SIZE" value="100MB"/>
+
+    <!--每产生一个日志文件，该日志文件的保存期限-->
+    <property name="MAX_HISTORY" value="30"/>
+
+    <property name="TOTAL_SIZE_CAP" value="5GB"/>
+
+    <!--jmx log信息提供给Spring Boot Admin-->
+    <jmxConfigurator/>
+
+
+    <!-- 输出spring运行日志到统一日志平台的配置 -->
+    <appender name="STASH" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 当前 -->
+        <file>${LOG_FILE_PATH}${JSON_LOG_FILE_NAME}.json</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 历史 -->
+            <fileNamePattern>${LOG_FILE_PATH}${LOG_FILE_HISTORY_PATH}${JSON_LOG_FILE_NAME}.%d{yyyy-MM-dd}_%i.json.gz</fileNamePattern>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <MaxFileSize>${MAX_FILE_SIZE}</MaxFileSize>
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %level %logger{50} - %msg%n</pattern>
+            <charset>${CONSOLE_LOG_CHARSET}</charset>
+        </encoder>
+    </appender>
+
+    <!-- 按照每天生成错误日志文件 -->
+    <appender name="errorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 此日志文件只记录ERROR级别的 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <!-- 当前 -->
+        <file>${LOG_FILE_PATH}${JSON_LOG_ERROR_FILE_NAME}.json</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %level %logger{50} - %msg%n</pattern>
+            <charset>${CONSOLE_LOG_CHARSET}</charset>
+        </encoder>
+        <!--输出日志到src同级目录logs中的error.log文件中-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 历史 -->
+            <fileNamePattern>${LOG_FILE_PATH}${LOG_FILE_HISTORY_PATH}${JSON_LOG_ERROR_FILE_NAME}.error_%d{yyyy-MM-dd}_%i.json.gz</fileNamePattern>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <MaxFileSize>${MAX_FILE_SIZE}</MaxFileSize>
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>${CONSOLE_LOG_CHARSET}</charset>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="STASH"/>
+        <appender-ref ref="errorAppender" />
+    </root>
+</configuration>

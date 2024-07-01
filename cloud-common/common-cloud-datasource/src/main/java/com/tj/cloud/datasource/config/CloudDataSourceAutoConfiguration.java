@@ -34,7 +34,6 @@ import java.util.stream.Collectors;
  **/
 @Configuration
 @EnableConfigurationProperties(CloudDataSourceProperties.class)
-@ConditionalOnProperty(prefix = "cloud.ds", name = "enabled", havingValue = "false")
 public class CloudDataSourceAutoConfiguration {
 
 	private final static Logger log = LoggerFactory.getLogger(CloudDataSourceAutoConfiguration.class);

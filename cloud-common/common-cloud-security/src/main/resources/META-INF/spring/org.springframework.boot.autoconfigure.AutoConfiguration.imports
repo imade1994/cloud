@@ -1,0 +1,8 @@
+com.tj.cloud.security.login.CloudUserDetailsServiceImpl
+com.tj.cloud.security.login.CloudAppUserDetailsServiceImpl
+com.tj.cloud.security.login.CloudRedisOAuth2AuthorizationService
+com.tj.cloud.security.login.CloudRedisOAuth2AuthorizationConsentService
+com.tj.cloud.security.login.CloudRemoteRegisteredClientRepository
+com.tj.cloud.security.authentication.CloudSecurityInnerAspect
+com.tj.cloud.security.authentication.CloudSecurityMessageSourceConfiguration
+

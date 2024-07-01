@@ -2,6 +2,8 @@ package com.tj.cloud.security.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.RequestInterceptor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
@@ -11,6 +13,8 @@ import org.springframework.security.oauth2.server.resource.web.BearerTokenResolv
 /**
  * * @Author codingMan_tj * @Date 2024/3/29 16:18 * @version v1.0.0 * @desc
  **/
+@RequiredArgsConstructor
+@EnableConfigurationProperties(IgnoreUrlProperties.class)
 public class CloudResourceServerAutoConfiguration {
 
 	/**

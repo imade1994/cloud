@@ -9,32 +9,29 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedA
 import org.springframework.stereotype.Component;
 
 /**
- * * @Author codingMan_tj
- * * @Date 2024/4/9 15:02
- * * @version v1.0.0
- * * @desc
+ * * @Author codingMan_tj * @Date 2024/4/9 15:02 * @version v1.0.0 * @desc
  **/
 @Component
 public class CloudLogoutSuccessEventHandler implements ApplicationListener<LogoutSuccessEvent> {
 
-    private static final Logger logger = LoggerFactory.getLogger(CloudLogoutSuccessEventHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(CloudLogoutSuccessEventHandler.class);
 
+	@Override
+	public void onApplicationEvent(LogoutSuccessEvent event) {
+		Authentication authentication = (Authentication) event.getSource();
+		if (authentication instanceof PreAuthenticatedAuthenticationToken) {
+			handle(authentication);
+		}
+	}
 
-    @Override
-    public void onApplicationEvent(LogoutSuccessEvent event) {
-        Authentication authentication = (Authentication) event.getSource();
-        if (authentication instanceof PreAuthenticatedAuthenticationToken) {
-            handle(authentication);
-        }
-    }
+	/**
+	 * 处理退出成功方法
+	 * <p>
+	 * 获取到登录的authentication 对象
+	 * @param authentication 登录对象
+	 */
+	public void handle(Authentication authentication) {
+		// todo gateway 记录退出日志
+	}
 
-    /**
-     * 处理退出成功方法
-     * <p>
-     * 获取到登录的authentication 对象
-     * @param authentication 登录对象
-     */
-    public void handle(Authentication authentication) {
-        // todo gateway 记录退出日志
-    }
 }

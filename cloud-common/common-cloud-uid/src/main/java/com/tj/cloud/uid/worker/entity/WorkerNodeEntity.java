@@ -1,6 +1,5 @@
 package com.tj.cloud.uid.worker.entity;
 
-
 import com.tj.cloud.core.utils.ToStringUtils;
 import com.tj.cloud.uid.worker.WorkerNodeType;
 import lombok.Data;

@@ -22,7 +22,7 @@ public class CloudResourceServerConfiguration {
 
 	private final IgnoreUrlProperties permitAllUrl;
 
-	private final CloudBearerTokenExtractor pigBearerTokenExtractor;
+	private final CloudBearerTokenExtractor cloudBearerTokenExtractor;
 
 	private final OpaqueTokenIntrospector customOpaqueTokenIntrospector;
 
@@ -36,7 +36,7 @@ public class CloudResourceServerConfiguration {
 				.oauth2ResourceServer(
 						oauth2 -> oauth2.opaqueToken(token -> token.introspector(customOpaqueTokenIntrospector))
 								.authenticationEntryPoint(resourceAuthExceptionEntryPoint)
-								.bearerTokenResolver(pigBearerTokenExtractor))
+								.bearerTokenResolver(cloudBearerTokenExtractor))
 				.headers().frameOptions().disable().and().csrf().disable();
 
 		return http.build();

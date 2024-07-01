@@ -23,18 +23,18 @@ import org.springframework.util.ReflectionUtils;
 @Configuration
 public class CloudTransactionAutoConfiguration extends AbstractTransactionManagementConfiguration {
 
-	private static final String AOP_POINTCUT_EXPRESSION = "execution(* com.hlxd.cloud..manager.*.*(..))||execution(* com.hlxd.cloud.*.manager.*.*(..))";
+	private static final String AOP_POINTCUT_EXPRESSION = "execution(* com.tj.cloud..manager.*.*(..))||execution(* com.tj.cloud.*.manager.*.*(..))";
 
-	private static final String MONGODB_TX_CLASS = "com.hlxd.cloud.db.core.config.mongodb.HlMongodbDataSourceTransactionManager";
+	private static final String MONGODB_TX_CLASS = "com.tj.cloud.db.core.config.mongodb.HlMongodbDataSourceTransactionManager";
 
-	private static final String RW_TX_INTERCEPTOR_CLASS = "com.hlxd.cloud.db.core.readwrite.HlRwTransactionInterceptor";
+	private static final String RW_TX_INTERCEPTOR_CLASS = "com.tj.cloud.db.core.readwrite.HlRwTransactionInterceptor";
 
 	@Bean
 	public PlatformTransactionManager transactionManager() {
 		// Create different things manager
 		PlatformTransactionManager platformTransactionManager = new CloudDataSourceTransactionManager();
 		/*
-		 * if (ClassUtils.isPresent(MONGODB_TX_CLASS, this.getClass().getClassLoader())) {
+		 * if (ClassUtilsExtend.isPresent(MONGODB_TX_CLASS, this.getClass().getClassLoader())) {
 		 * platformTransactionManager = new HlMongodbDataSourceTransactionManager(); }
 		 * else { platformTransactionManager = new HlCloudDataSourceTransactionManager();
 		 * }

@@ -2,8 +2,8 @@ package com.tj.cloud.security.login.service;
 
 import cn.hutool.core.util.ArrayUtil;
 import com.tj.cloud.core.http.CloudResult;
-import com.tj.cloud.core.model.authentication.pojo.UserInfoPojo;
-import com.tj.cloud.core.model.authentication.vo.User;
+import com.tj.cloud.upms.pojo.UserInfoPojo;
+import com.tj.cloud.upms.entity.User;
 import com.tj.cloud.core.utils.RetOps;
 import com.tj.cloud.security.constant.SecurityConstant;
 import com.tj.cloud.security.login.entity.LoginUser;

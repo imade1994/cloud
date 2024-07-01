@@ -13,5 +13,33 @@
     <groupId>com.tj.cloud</groupId>
     <artifactId>common-cloud-log</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.tj.cloud</groupId>
+            <artifactId>common-cloud-mybatis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-extra</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-http</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.tj.cloud</groupId>
+            <artifactId>cloud-upms-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.tj.cloud</groupId>
+            <artifactId>cloud-system-api</artifactId>
+        </dependency>
+        <!--安全依赖获取上下文信息-->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+        </dependency>
+    </dependencies>
+
 
 </project>

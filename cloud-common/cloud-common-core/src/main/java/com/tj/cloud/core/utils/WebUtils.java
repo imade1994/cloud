@@ -1,7 +1,6 @@
 package com.tj.cloud.core.utils;
 
 import cn.hutool.core.codec.Base64;
-import com.sun.istack.internal.NotNull;
 import com.tj.cloud.core.exception.BusinessException;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
@@ -15,6 +14,7 @@ import org.springframework.web.method.HandlerMethod;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotNull;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
@@ -34,7 +34,7 @@ public class WebUtils extends org.springframework.web.util.WebUtils {
 	 * @return 是否ajax请求
 	 */
 	public boolean isBody(HandlerMethod handlerMethod) {
-		ResponseBody responseBody = ClassUtils.getAnnotation(handlerMethod, ResponseBody.class);
+		ResponseBody responseBody = ClassUtilsExtend.getAnnotation(handlerMethod, ResponseBody.class);
 		return responseBody != null;
 	}
 

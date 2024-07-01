@@ -23,7 +23,10 @@
         <dependency>
             <groupId>com.tj.cloud</groupId>
             <artifactId>common-cloud-feign</artifactId>
-            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.tj.cloud</groupId>
+            <artifactId>common-cloud-mybatis</artifactId>
         </dependency>
 
     </dependencies>
