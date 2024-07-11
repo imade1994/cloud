@@ -1,7 +1,4 @@
-/*
- * Copyright (c) 2003-2021 www.hualongxunda.com/ Inc. All rights reserved.
- * 注意：本内容仅限于深圳华龙讯达信息技术股份有限公司内部传阅，禁止外泄以及用于其他商业目的。
- */
+
 package com.tj.cloud.upms.service.impl;
 
 import cn.hutool.core.util.ArrayUtil;
@@ -43,53 +40,44 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
+	private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+	private static final PasswordEncoder ENCODER = new BCryptPasswordEncoder();
 
-    private static final PasswordEncoder ENCODER = new BCryptPasswordEncoder();
+	@Resource
+	ISysRoleService sysRoleService;
 
+	@Resource
+	ISysMenuService sysMenuService;
 
-    @Resource
-    ISysRoleService sysRoleService;
+	@Resource
+	ISysPostService sysPostService;
 
+	@Override
+	public UserInfoPojo getUserInfo(User user) {
+		UserInfoPojo userInfoPojo = new UserInfoPojo();
+		userInfoPojo.setUser(user);
+		// 设置角色列表
+		List<SysRole> roleList = sysRoleService.listRolesByUserId(user.getId());
+		userInfoPojo.setRoleList(roleList);
+		// 设置角色列表 （ID）
+		List<String> roleIds = roleList.stream().map(SysRole::getId).collect(Collectors.toList());
+		userInfoPojo.setRoles(ArrayUtil.toArray(roleIds, String.class));
+		// 设置岗位列表
+		List<SysPost> postList = sysPostService.listPostsByUserId(user.getId());
+		userInfoPojo.setPostList(postList);
+		// 设置权限列表（menu.permission）
+		Set<String> permissions = roleIds.stream().map(sysMenuService::listMenusByRoleId).flatMap(Collection::stream)
+				.filter(m -> MenuTypeEnum.BUTTON.getType().equals(m.getType())).map(SysMenu::getPermission)
+				.filter(StrUtil::isNotBlank).collect(Collectors.toSet());
+		userInfoPojo.setPermissions(ArrayUtil.toArray(permissions, String.class));
+		return userInfoPojo;
+	}
 
-    @Resource
-    ISysMenuService sysMenuService;
+	@Override
+	public List<String> listUserIdByDeptIds(Set<String> deptIds) {
+		return this.listObjs(Wrappers.lambdaQuery(User.class).select(User::getId).in(User::getDeptId, deptIds),
+				String.class::cast);
+	}
 
-
-    @Resource
-    ISysPostService sysPostService;
-
-
-
-
-
-
-    @Override
-    public UserInfoPojo getUserInfo(User user) {
-        UserInfoPojo userInfoPojo = new UserInfoPojo();
-        userInfoPojo.setUser(user);
-        // 设置角色列表
-        List<SysRole> roleList = sysRoleService.listRolesByUserId(user.getId());
-        userInfoPojo.setRoleList(roleList);
-        // 设置角色列表 （ID）
-        List<String> roleIds = roleList.stream().map(SysRole::getId).collect(Collectors.toList());
-        userInfoPojo.setRoles(ArrayUtil.toArray(roleIds, String.class));
-        // 设置岗位列表
-        List<SysPost> postList = sysPostService.listPostsByUserId(user.getId());
-        userInfoPojo.setPostList(postList);
-        // 设置权限列表（menu.permission）
-        Set<String> permissions = roleIds.stream().map(sysMenuService::listMenusByRoleId).flatMap(Collection::stream)
-                .filter(m -> MenuTypeEnum.BUTTON.getType().equals(m.getType())).map(SysMenu::getPermission)
-                .filter(StrUtil::isNotBlank).collect(Collectors.toSet());
-        userInfoPojo.setPermissions(ArrayUtil.toArray(permissions, String.class));
-        return userInfoPojo;
-    }
-
-    @Override
-    public List<String> listUserIdByDeptIds(Set<String> deptIds) {
-        return this.listObjs(
-                Wrappers.lambdaQuery(User.class).select(User::getId).in(User::getDeptId, deptIds),
-                String.class::cast);
-    }
 }

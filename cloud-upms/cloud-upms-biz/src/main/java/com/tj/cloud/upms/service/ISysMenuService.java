@@ -1,7 +1,4 @@
-/*
- * Copyright (c) 2003-2021 www.hualongxunda.com/ Inc. All rights reserved.
- * 注意：本内容仅限于深圳华龙讯达信息技术股份有限公司内部传阅，禁止外泄以及用于其他商业目的。
- */
+
 package com.tj.cloud.upms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -17,10 +14,11 @@ import java.util.Set;
  */
 public interface ISysMenuService extends IService<SysMenu> {
 
-    /**
-     * 通过角色编号查询菜单
-     * @param roleId 角色ID
-     * @return
-     */
-    Set<SysMenu> listMenusByRoleId(String roleId);
+	/**
+	 * 通过角色编号查询菜单
+	 * @param roleId 角色ID
+	 * @return
+	 */
+	Set<SysMenu> listMenusByRoleId(String roleId);
+
 }

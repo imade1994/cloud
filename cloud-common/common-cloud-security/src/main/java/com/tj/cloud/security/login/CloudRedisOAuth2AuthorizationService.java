@@ -29,7 +29,7 @@ public class CloudRedisOAuth2AuthorizationService implements OAuth2Authorization
 
 	private static final String AUTHORIZATION = "token";
 
-	private final RedisTemplate<String, Object> redisTemplate;
+	private final RedisTemplate<Object, Object> redisTemplate;
 
 	@Override
 	public void save(OAuth2Authorization authorization) {

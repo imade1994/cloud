@@ -21,26 +21,25 @@ import javax.annotation.Resource;
 public class CloudRedisCacheConfiguration {
 
 	@Resource
-	RedisConnectionFactory redisConnectionFactory;
+	RedisTemplate redisTemplate;
 
-	@Bean
-	public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-		RedisTemplate<String,Object> redisTemplate = new RedisTemplate<String,Object>();
-		redisTemplate.setConnectionFactory(redisConnectionFactory);
-		JdkSerializationRedisSerializer jdkSerializationRedisSerializer = new JdkSerializationRedisSerializer();
-		StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
-		redisTemplate.setKeySerializer(stringRedisSerializer);
-		redisTemplate.setHashKeySerializer(stringRedisSerializer);
-		redisTemplate.setValueSerializer(jdkSerializationRedisSerializer);
-		redisTemplate.setHashValueSerializer(jdkSerializationRedisSerializer);
-		return redisTemplate;
-	}
-
+	/*
+	 * @Bean public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory
+	 * redisConnectionFactory) { RedisTemplate<String,Object> redisTemplate = new
+	 * RedisTemplate<String,Object>();
+	 * redisTemplate.setConnectionFactory(redisConnectionFactory);
+	 * JdkSerializationRedisSerializer jdkSerializationRedisSerializer = new
+	 * JdkSerializationRedisSerializer(); StringRedisSerializer stringRedisSerializer =
+	 * new StringRedisSerializer(); redisTemplate.setKeySerializer(stringRedisSerializer);
+	 * redisTemplate.setHashKeySerializer(stringRedisSerializer);
+	 * redisTemplate.setValueSerializer(jdkSerializationRedisSerializer);
+	 * redisTemplate.setHashValueSerializer(jdkSerializationRedisSerializer); return
+	 * redisTemplate; }
+	 */
 
 	@Bean
 	public ICache iCache() {
-		return new RedisCache(redisTemplate(redisConnectionFactory));
+		return new RedisCache(redisTemplate);
 	}
-
 
 }

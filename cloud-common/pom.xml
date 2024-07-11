@@ -36,6 +36,7 @@
         <module>common-cloud-gateway</module>
         <module>common-cloud-uid</module>
         <module>common-cloud-message</module>
+        <module>common-cloud-redis</module>
     </modules>
 
 

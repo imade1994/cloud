@@ -1,7 +1,4 @@
-/*
- * Copyright (c) 2003-2021 www.hualongxunda.com/ Inc. All rights reserved.
- * 注意：本内容仅限于深圳华龙讯达信息技术股份有限公司内部传阅，禁止外泄以及用于其他商业目的。
- */
+
 package com.tj.cloud.upms.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -23,17 +20,18 @@ import java.io.Serializable;
 @TableName("t_upms_sys_user_post")
 public class SysUserPost implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * 用户ID
-     */
-    @ApiModelProperty("用户id")
-    private String userId;
+	/**
+	 * 用户ID
+	 */
+	@ApiModelProperty("用户id")
+	private String userId;
 
-    /**
-     * 岗位ID
-     */
-    @ApiModelProperty("岗位id")
-    private Serializable postId;
+	/**
+	 * 岗位ID
+	 */
+	@ApiModelProperty("岗位id")
+	private Serializable postId;
+
 }

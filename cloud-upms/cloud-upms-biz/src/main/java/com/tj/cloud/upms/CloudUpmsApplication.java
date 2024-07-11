@@ -1,7 +1,4 @@
-/*
- * Copyright (c) 2003-2021 www.hualongxunda.com/ Inc. All rights reserved.
- * 注意：本内容仅限于深圳华龙讯达信息技术股份有限公司内部传阅，禁止外泄以及用于其他商业目的。
- */
+
 package com.tj.cloud.upms;
 
 import com.tj.cloud.cache.annotations.EnableCache;
@@ -22,11 +19,12 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableCloudFeignClients
 @EnableDiscoveryClient
 @EnableCache
-@MapperScan(basePackages = {"com.tj.cloud.*.mapper"})
+@MapperScan(basePackages = { "com.tj.cloud.*.mapper" })
 @EnableCloudResourceServer
 public class CloudUpmsApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(CloudUpmsApplication.class,args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(CloudUpmsApplication.class, args);
+	}
+
 }

@@ -10,7 +10,6 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.tj.cloud</groupId>
     <artifactId>common-cloud-security</artifactId>
 
     <dependencies>

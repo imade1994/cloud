@@ -22,7 +22,6 @@ public class User extends BaseModel implements IUser, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-
 	@ApiModelProperty("姓名")
 	private String name;
 

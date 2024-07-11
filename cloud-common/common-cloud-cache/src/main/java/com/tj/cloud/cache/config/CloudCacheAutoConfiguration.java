@@ -33,8 +33,8 @@ public class CloudCacheAutoConfiguration {
 	}
 
 	@Bean
-	public CacheManager cacheManager(BeanFactory beanFactory, CloudCacheProperties abCacheProperties) {
-		return new CloudSpringCacheManager(beanFactory, Boolean.TRUE.equals(abCacheProperties.getAllowNullValues()));
+	public CacheManager cacheManager(BeanFactory beanFactory, CloudCacheProperties cacheProperties) {
+		return new CloudSpringCacheManager(beanFactory, Boolean.TRUE.equals(cacheProperties.getAllowNullValues()));
 	}
 
 }

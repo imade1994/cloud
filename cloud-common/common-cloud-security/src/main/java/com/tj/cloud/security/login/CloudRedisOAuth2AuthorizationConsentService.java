@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class CloudRedisOAuth2AuthorizationConsentService implements OAuth2AuthorizationConsentService {
 
-	private final RedisTemplate<String, Object> redisTemplate;
+	private final RedisTemplate<Object, Object> redisTemplate;
 
 	private final static Long TIMEOUT = 10L;
 

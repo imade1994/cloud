@@ -1,7 +1,4 @@
-/*
- * Copyright (c) 2003-2021 www.hualongxunda.com/ Inc. All rights reserved.
- * 注意：本内容仅限于深圳华龙讯达信息技术股份有限公司内部传阅，禁止外泄以及用于其他商业目的。
- */
+
 package com.tj.cloud.system.controller;
 
 import com.tj.cloud.core.http.CloudResult;
@@ -33,19 +30,18 @@ import javax.validation.Valid;
 @SecurityRequirement(name = HttpHeaders.AUTHORIZATION)
 public class SysLogController {
 
-    @Resource
-    ISysLogService sysLogService;
+	@Resource
+	ISysLogService sysLogService;
 
-
-    /**
-     * 插入日志
-     * @param sysLog 日志实体
-     * @return success/false
-     */
-    @Inner
-    @PostMapping("/save")
-    public CloudResult<Boolean> save(@Valid @RequestBody SysLog sysLog) {
-        return CloudResult.ok(sysLogService.save(sysLog));
-    }
+	/**
+	 * 插入日志
+	 * @param sysLog 日志实体
+	 * @return success/false
+	 */
+	@Inner
+	@PostMapping("/save")
+	public CloudResult<Boolean> save(@Valid @RequestBody SysLog sysLog) {
+		return CloudResult.ok(sysLogService.save(sysLog));
+	}
 
 }

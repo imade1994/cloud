@@ -43,10 +43,9 @@ import java.util.Objects;
 @Configuration(proxyBeanMethods = false)
 public class MybatisAutoConfiguration implements WebMvcConfigurer {
 
-
-	/*@Resource
-	MybatisPlusProperties mybatisPlusProperties;
-*/
+	/*
+	 * @Resource MybatisPlusProperties mybatisPlusProperties;
+	 */
 	/**
 	 * SQL 过滤器避免SQL 注入
 	 */
@@ -74,46 +73,41 @@ public class MybatisAutoConfiguration implements WebMvcConfigurer {
 		return new MybatisPlusMetaObjectHandler();
 	}
 
+	/*
+	 * @Bean(name = "sqlSessionFactory") public MybatisSqlSessionFactoryBean
+	 * sqlSessionFactory(@Qualifier("dataSource") DataSource dataSource) { String[]
+	 * mapperLocations = {"classpath*:mapper/*Mapper.xml"}; if
+	 * (ArrayUtils.isNotEmpty(mybatisPlusProperties.getMapperLocations())) {
+	 * mapperLocations = ArrayUtils.addAll(mapperLocations,
+	 * mybatisPlusProperties.getMapperLocations()); } MybatisSqlSessionFactoryBean
+	 * sqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
+	 * sqlSessionFactoryBean.setDataSource(dataSource);
+	 * sqlSessionFactoryBean.setMapperLocations(resolveMapperLocations(mapperLocations));
+	 * MybatisConfiguration configuration = mybatisPlusProperties.getConfiguration();
+	 * configuration.setDefaultEnumTypeHandler(MybatisEnumTypeHandler.class);
+	 * configuration.setMapUnderscoreToCamelCase(true);
+	 * sqlSessionFactoryBean.setConfiguration(configuration); GlobalConfig.DbConfig
+	 * dbConfig = mybatisPlusProperties.getGlobalConfig().getDbConfig();
+	 * dbConfig.setUpdateStrategy(FieldStrategy.NOT_EMPTY); // 添加自定义sql注入接口
+	 * sqlSessionFactoryBean.setGlobalConfig(mybatisPlusProperties.getGlobalConfig());
+	 * return sqlSessionFactoryBean; }
+	 *
+	 *
+	 * private org.springframework.core.io.Resource[] resolveMapperLocations(String...
+	 * locations) { ResourcePatternResolver resourceResolver = new
+	 * PathMatchingResourcePatternResolver(); List<org.springframework.core.io.Resource>
+	 * resources = new ArrayList<>(); for (String mapperLocation : locations) { try {
+	 * org.springframework.core.io.Resource[] mappers =
+	 * resourceResolver.getResources(mapperLocation);
+	 * resources.addAll(Arrays.asList(mappers)); } catch (IOException e) { // ignore } }
+	 * return resources.toArray(new org.springframework.core.io.Resource[0]); }
+	 */
 
-	/*@Bean(name = "sqlSessionFactory")
-	public MybatisSqlSessionFactoryBean sqlSessionFactory(@Qualifier("dataSource") DataSource dataSource) {
-		String[] mapperLocations = {"classpath*:mapper/*Mapper.xml"};
-		if (ArrayUtils.isNotEmpty(mybatisPlusProperties.getMapperLocations())) {
-			mapperLocations = ArrayUtils.addAll(mapperLocations, mybatisPlusProperties.getMapperLocations());
-		}
-		MybatisSqlSessionFactoryBean sqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
-		sqlSessionFactoryBean.setDataSource(dataSource);
-		sqlSessionFactoryBean.setMapperLocations(resolveMapperLocations(mapperLocations));
-		MybatisConfiguration configuration = mybatisPlusProperties.getConfiguration();
-		configuration.setDefaultEnumTypeHandler(MybatisEnumTypeHandler.class);
-		configuration.setMapUnderscoreToCamelCase(true);
-		sqlSessionFactoryBean.setConfiguration(configuration);
-		GlobalConfig.DbConfig dbConfig = mybatisPlusProperties.getGlobalConfig().getDbConfig();
-		dbConfig.setUpdateStrategy(FieldStrategy.NOT_EMPTY);
-		// 添加自定义sql注入接口
-		sqlSessionFactoryBean.setGlobalConfig(mybatisPlusProperties.getGlobalConfig());
-		return sqlSessionFactoryBean;
-	}
-
-
-	private org.springframework.core.io.Resource[] resolveMapperLocations(String... locations) {
-		ResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
-		List<org.springframework.core.io.Resource> resources = new ArrayList<>();
-		for (String mapperLocation : locations) {
-			try {
-				org.springframework.core.io.Resource[] mappers = resourceResolver.getResources(mapperLocation);
-				resources.addAll(Arrays.asList(mappers));
-			} catch (IOException e) {
-				// ignore
-			}
-		}
-		return resources.toArray(new org.springframework.core.io.Resource[0]);
-	}*/
-
-
-	/*@Bean("sqlSessionTemplate")
-	public SqlSessionTemplate sqlSessionTemplate(@Qualifier("sqlSessionFactory") MybatisSqlSessionFactoryBean sqlSessionFactory) throws Exception {
-		return new SqlSessionTemplate(Objects.requireNonNull(sqlSessionFactory.getObject()));
-	}*/
+	/*
+	 * @Bean("sqlSessionTemplate") public SqlSessionTemplate
+	 * sqlSessionTemplate(@Qualifier("sqlSessionFactory") MybatisSqlSessionFactoryBean
+	 * sqlSessionFactory) throws Exception { return new
+	 * SqlSessionTemplate(Objects.requireNonNull(sqlSessionFactory.getObject())); }
+	 */
 
 }

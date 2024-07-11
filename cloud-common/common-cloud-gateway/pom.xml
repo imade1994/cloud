@@ -47,6 +47,10 @@
             <groupId>com.tj.cloud</groupId>
             <artifactId>common-cloud-cache</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-cache</artifactId>
+        </dependency>
     </dependencies>
 
 

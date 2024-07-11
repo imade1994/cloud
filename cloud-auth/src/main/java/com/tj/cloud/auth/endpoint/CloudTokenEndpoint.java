@@ -69,7 +69,7 @@ public class CloudTokenEndpoint {
 
 	private final RemoteClientFeignService clientFeignService;
 
-	private final RedisTemplate<String, Object> redisTemplate;
+	private final RedisTemplate<Object, Object> redisTemplate;
 
 	private final CacheManager cacheManager;
 

@@ -1,9 +1,5 @@
-/*
- * Copyright (c) 2003-2021 www.hualongxunda.com/ Inc. All rights reserved.
- * 注意：本内容仅限于深圳华龙讯达信息技术股份有限公司内部传阅，禁止外泄以及用于其他商业目的。
- */
-package com.tj.cloud.upms.controller;
 
+package com.tj.cloud.upms.controller;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -34,35 +30,29 @@ import java.util.Set;
 @AllArgsConstructor
 public class UserController {
 
+	private final IUserService userService;
 
+	@Inner
+	@GetMapping("info/{username}")
+	public CloudResult<UserInfoPojo> info(@PathVariable String username) {
+		User user = userService.getOne(Wrappers.lambdaQuery(User.class).ge(User::getAccount, username));
+		if (ObjectUtil.isNotNull(user)) {
+			return CloudResult.ok(userService.getUserInfo(user));
+		}
+		else {
+			return CloudResult.failed(MsgUtils.getMessage(ErrorCodes.SYS_USER_USERINFO_EMPTY, username));
+		}
+	}
 
+	/**
+	 * 根据部门id，查询对应的用户 id 集合
+	 * @param deptIds 部门id 集合
+	 * @return 用户 id 集合
+	 */
+	@Inner
+	@GetMapping("/ids")
+	public CloudResult<List<String>> listUserIdByDeptIds(@RequestParam("deptIds") Set<String> deptIds) {
+		return CloudResult.ok(userService.listUserIdByDeptIds(deptIds));
+	}
 
-
-    private final IUserService userService;
-
-
-
-    @Inner
-    @GetMapping("info/{username}")
-    public CloudResult<UserInfoPojo> info(@PathVariable String username){
-        User user = userService.getOne(
-                Wrappers.lambdaQuery(User.class).ge(User::getAccount,username));
-        if(ObjectUtil.isNotNull(user)){
-            return CloudResult.ok(userService.getUserInfo(user));
-        }else{
-            return CloudResult.failed(MsgUtils.getMessage(ErrorCodes.SYS_USER_USERINFO_EMPTY,username));
-        }
-    }
-
-
-    /**
-     * 根据部门id，查询对应的用户 id 集合
-     * @param deptIds 部门id 集合
-     * @return 用户 id 集合
-     */
-    @Inner
-    @GetMapping("/ids")
-    public CloudResult<List<String>> listUserIdByDeptIds(@RequestParam("deptIds") Set<String> deptIds) {
-        return CloudResult.ok(userService.listUserIdByDeptIds(deptIds));
-    }
 }

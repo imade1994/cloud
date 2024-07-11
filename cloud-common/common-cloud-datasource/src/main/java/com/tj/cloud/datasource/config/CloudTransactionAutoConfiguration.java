@@ -34,10 +34,10 @@ public class CloudTransactionAutoConfiguration extends AbstractTransactionManage
 		// Create different things manager
 		PlatformTransactionManager platformTransactionManager = new CloudDataSourceTransactionManager();
 		/*
-		 * if (ClassUtilsExtend.isPresent(MONGODB_TX_CLASS, this.getClass().getClassLoader())) {
-		 * platformTransactionManager = new HlMongodbDataSourceTransactionManager(); }
-		 * else { platformTransactionManager = new HlCloudDataSourceTransactionManager();
-		 * }
+		 * if (ClassUtilsExtend.isPresent(MONGODB_TX_CLASS,
+		 * this.getClass().getClassLoader())) { platformTransactionManager = new
+		 * HlMongodbDataSourceTransactionManager(); } else { platformTransactionManager =
+		 * new HlCloudDataSourceTransactionManager(); }
 		 */
 		txManager = platformTransactionManager;
 		return platformTransactionManager;

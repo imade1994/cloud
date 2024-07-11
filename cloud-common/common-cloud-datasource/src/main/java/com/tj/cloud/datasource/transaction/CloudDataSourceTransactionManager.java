@@ -47,7 +47,8 @@ public class CloudDataSourceTransactionManager extends AbstractPlatformTransacti
 
 	static {
 		ClassLoader classLoader = CloudDataSourceTransactionManager.class.getClassLoader();
-		// SEATA_PRESENT = ClassUtilsExtend.isPresent("io.seata.rm.datasource.DataSourceProxy",
+		// SEATA_PRESENT =
+		// ClassUtilsExtend.isPresent("io.seata.rm.datasource.DataSourceProxy",
 		// classLoader);
 	}
 

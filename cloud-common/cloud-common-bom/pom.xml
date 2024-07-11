@@ -68,6 +68,11 @@
             </dependency>
             <dependency>
                 <groupId>com.tj.cloud</groupId>
+                <artifactId>common-cloud-redis</artifactId>
+                <version>${cloud.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tj.cloud</groupId>
                 <artifactId>common-cloud-datasource</artifactId>
                 <version>${cloud.common.version}</version>
             </dependency>
@@ -219,11 +224,11 @@
                 <version>${springdoc.version}</version>
             </dependency>
             <!--fastjson 版本-->
-            <dependency>
+          <!--  <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
-            </dependency>
+            </dependency>-->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>

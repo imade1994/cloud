@@ -1,7 +1,4 @@
-/*
- * Copyright (c) 2003-2021 www.hualongxunda.com/ Inc. All rights reserved.
- * 注意：本内容仅限于深圳华龙讯达信息技术股份有限公司内部传阅，禁止外泄以及用于其他商业目的。
- */
+
 package com.tj.cloud.upms.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -35,22 +32,21 @@ import javax.annotation.Resource;
 @AllArgsConstructor
 public class AppController {
 
+	private final IUserService iUserService;
 
+	/**
+	 * 获取指定用户全部信息
+	 * @param phone 手机号
+	 * @return 用户信息
+	 */
+	@Inner
+	@GetMapping("/info/{phone}")
+	public CloudResult<UserInfoPojo> infoByMobile(@PathVariable String phone) {
+		User user = iUserService.getOne(Wrappers.<User>query().lambda().eq(User::getMobile, phone));
+		if (user == null) {
+			return CloudResult.failed(MsgUtils.getMessage(ErrorCodes.SYS_USER_USERINFO_EMPTY, phone));
+		}
+		return CloudResult.ok(iUserService.getUserInfo(user));
+	}
 
-    private final IUserService iUserService;
-
-    /**
-     * 获取指定用户全部信息
-     * @param phone 手机号
-     * @return 用户信息
-     */
-    @Inner
-    @GetMapping("/info/{phone}")
-    public CloudResult<UserInfoPojo> infoByMobile(@PathVariable String phone) {
-        User user = iUserService.getOne(Wrappers.<User>query().lambda().eq(User::getMobile, phone));
-        if (user == null) {
-            return CloudResult.failed(MsgUtils.getMessage(ErrorCodes.SYS_USER_USERINFO_EMPTY, phone));
-        }
-        return CloudResult.ok(iUserService.getUserInfo(user));
-    }
 }
