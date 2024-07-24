@@ -32,7 +32,7 @@ public class CloudResourceServerAutoConfiguration {
 	 * @return BearerTokenExtractor
 	 */
 	@Bean
-	public CloudBearerTokenExtractor pigBearerTokenExtractor(IgnoreUrlProperties urlProperties) {
+	public CloudBearerTokenExtractor bearerTokenExtractor(IgnoreUrlProperties urlProperties) {
 		return new CloudBearerTokenExtractor(urlProperties);
 	}
 

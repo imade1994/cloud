@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.tj.cloud.core.utils.ToStringUtils;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -36,6 +35,7 @@ public class BaseModel extends ToStringUtils implements IBaseModel, Serializable
 	protected LocalDateTime createTime;
 
 	@ApiModelProperty("创建人ID")
+	@TableField(fill = FieldFill.INSERT)
 	protected String createBy;
 
 	@ApiModelProperty(value = "创建人")

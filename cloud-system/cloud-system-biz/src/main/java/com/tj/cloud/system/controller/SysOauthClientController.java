@@ -7,7 +7,6 @@ import com.tj.cloud.system.entity.SysOauthClientDetails;
 import com.tj.cloud.system.service.ISysOauthClientDetailsService;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +41,7 @@ public class SysOauthClientController {
 	@GetMapping("/getClientDetailsById/{clientId}")
 	public CloudResult<List<SysOauthClientDetails>> getByClientId(@PathVariable String clientId) {
 		return CloudResult.ok(sysOauthClientDetailsService
-				.list(Wrappers.<SysOauthClientDetails>lambdaQuery().eq(SysOauthClientDetails::getId, clientId)));
+				.list(Wrappers.<SysOauthClientDetails>lambdaQuery().eq(SysOauthClientDetails::getId, clientId)),"sys");
 	}
 
 }

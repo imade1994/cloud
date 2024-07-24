@@ -69,7 +69,7 @@ public class CloudTokenEndpoint {
 
 	private final RemoteClientFeignService clientFeignService;
 
-	private final RedisTemplate<Object, Object> redisTemplate;
+	private final RedisTemplate<String, Object> redisTemplate;
 
 	private final CacheManager cacheManager;
 
@@ -111,7 +111,7 @@ public class CloudTokenEndpoint {
 	public CloudResult<Boolean> logout(
 			@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
 		if (StrUtil.isBlank(authHeader)) {
-			return CloudResult.ok();
+			return CloudResult.ok("auth");
 		}
 
 		String tokenValue = authHeader.replace(OAuth2AccessToken.TokenType.BEARER.getValue(), StrUtil.EMPTY).trim();
@@ -172,7 +172,7 @@ public class CloudTokenEndpoint {
 		// 处理自定义退出事件，保存相关日志
 		SpringContextHolder.publishEvent(new LogoutSuccessEvent(new PreAuthenticatedAuthenticationToken(
 				authorization.getPrincipalName(), authorization.getRegisteredClientId())));
-		return CloudResult.ok();
+		return CloudResult.ok("auth");
 	}
 
 	/**
@@ -212,7 +212,7 @@ public class CloudTokenEndpoint {
 				}).collect(Collectors.toList());
 		result.setRecords(tokenVoList);
 		result.setTotal(keys.size());
-		return CloudResult.ok(result);
+		return CloudResult.ok(result,"auth");
 	}
 
 }

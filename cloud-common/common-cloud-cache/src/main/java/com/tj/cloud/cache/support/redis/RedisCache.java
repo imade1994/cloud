@@ -25,22 +25,22 @@ public class RedisCache<T extends Object> implements ICache<T> {
 
 	private final Logger logger = LoggerFactory.getLogger(RedisCache.class);
 
-	private RedisTemplate<String, T> redisTemplate;
+	private RedisTemplate<Object, T> redisTemplate;
 
-	public RedisCache(RedisTemplate<String, T> redisTemplate) {
+	public RedisCache(RedisTemplate<Object, T> redisTemplate) {
 		this.redisTemplate = redisTemplate;
 	}
 
 	@Override
 	public synchronized void add(String key, T obj) {
 		redisTemplate.boundValueOps(key).set(obj);
-		logger.info("redis add " + key);
+        logger.info("redis add {}", key);
 	}
 
 	@Override
 	public synchronized void add(String key, T obj, long timeout) {
 		redisTemplate.boundValueOps(key).set(obj, timeout, TimeUnit.SECONDS);
-		logger.info("redis add " + key + " timeout " + timeout);
+        logger.info("redis add {} timeout {}", key, timeout);
 	}
 
 	@Override

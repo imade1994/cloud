@@ -6,6 +6,7 @@ import com.tj.cloud.core.utils.SpringContextHolder;
 import com.tj.cloud.feign.constant.GatewayConstant;
 import com.tj.cloud.feign.exception.RouteCheckException;
 import com.tj.cloud.feign.support.DynamicRouteHealthIndicator;
+import com.tj.cloud.feign.support.RouteCacheHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.cloud.gateway.config.GatewayProperties;
@@ -18,7 +19,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 
-import java.util.Collections;
 import java.util.List;
 
 /**

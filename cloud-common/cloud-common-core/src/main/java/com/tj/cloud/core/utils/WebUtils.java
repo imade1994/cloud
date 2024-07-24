@@ -7,6 +7,7 @@ import lombok.experimental.UtilityClass;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.method.HandlerMethod;
@@ -99,6 +100,21 @@ public class WebUtils extends org.springframework.web.util.WebUtils {
 			return Optional.empty();
 		}
 		return Optional.of(servletRequestAttributes.getRequest());
+	}
+
+
+	/**
+	 * 获取 HttpServletRequest
+	 *
+	 * @return {HttpServletRequest}
+	 */
+	public HttpServletRequest getOriRequest() {
+		try {
+			RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
+			return ((ServletRequestAttributes) requestAttributes).getRequest();
+		} catch (IllegalStateException e) {
+			return null;
+		}
 	}
 
 	/**

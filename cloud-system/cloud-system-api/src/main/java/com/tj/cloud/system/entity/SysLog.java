@@ -18,7 +18,7 @@ import javax.validation.constraints.NotBlank;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@TableName()
+@TableName("t_sys_log")
 public class SysLog extends BaseModel {
 
 	/**

@@ -33,7 +33,7 @@ public class ResourceAuthExceptionEntryPoint implements AuthenticationEntryPoint
 			AuthenticationException authException) {
 		response.setCharacterEncoding(CommonConstant.UTF8);
 		response.setContentType(CommonConstant.CONTENT_TYPE);
-		CloudResult<String> result = CloudResult.failed();
+		CloudResult<String> result = CloudResult.failed("auth");
 		response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		if (authException != null) {
 			result.setDesc("error");

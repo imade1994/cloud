@@ -2,15 +2,9 @@ package com.tj.cloud.cache.config;
 
 import com.tj.cloud.cache.support.redis.RedisCache;
 import com.tj.cloud.core.abs.ICache;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import javax.annotation.Resource;
 
@@ -21,7 +15,7 @@ import javax.annotation.Resource;
 public class CloudRedisCacheConfiguration {
 
 	@Resource
-	RedisTemplate redisTemplate;
+	RedisTemplate<Object,Object> redisTemplate;
 
 	/*
 	 * @Bean public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory

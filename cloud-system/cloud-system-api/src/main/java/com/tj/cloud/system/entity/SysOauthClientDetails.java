@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank;
  * * @Author codingMan_tj * @Date 2024/3/29 17:03 * @version v1.0.0 * @desc
  **/
 @EqualsAndHashCode(callSuper = true)
-@TableName("t_upms_oauth_client_details")
+@TableName("t_sys_oauth_client")
 @Data
 public class SysOauthClientDetails extends BaseModel {
 

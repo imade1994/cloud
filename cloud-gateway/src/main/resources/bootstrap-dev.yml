@@ -1,0 +1,24 @@
+server:
+  port: 4000
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri:
+  application:
+    name: @project.artifactId@
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_HOST:nacos.k8s.dev.com}:${NACOS_PORT:30333}
+        namespace: dynamic
+      config:
+        namespace: dynamic
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        file-extension: yaml
+        prefix: @project.artifactId@
+        shared-configs:
+          - application-dev.yaml
+      username: nacos
+      password: P@ssw0rd!@#$

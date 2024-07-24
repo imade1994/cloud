@@ -7,8 +7,6 @@ import com.tj.cloud.system.entity.SysLog;
 import com.tj.cloud.system.service.ISysLogService;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +39,7 @@ public class SysLogController {
 	@Inner
 	@PostMapping("/save")
 	public CloudResult<Boolean> save(@Valid @RequestBody SysLog sysLog) {
-		return CloudResult.ok(sysLogService.save(sysLog));
+		return CloudResult.ok(sysLogService.save(sysLog),"sys");
 	}
 
 }

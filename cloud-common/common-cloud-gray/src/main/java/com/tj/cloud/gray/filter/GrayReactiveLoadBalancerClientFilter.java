@@ -1,10 +1,7 @@
-/*
- * Copyright (c) 2003-2021 www.hualongxunda.com/ Inc. All rights reserved.
- * 注意：本内容仅限于深圳华龙讯达信息技术股份有限公司内部传阅，禁止外泄以及用于其他商业目的。
- */
-package com.tj.cloud.feign.filter;
 
-import com.tj.cloud.feign.rule.GrayLoadBalancer;
+package com.tj.cloud.gray.filter;
+
+import com.tj.cloud.gray.rule.GrayLoadBalancer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.client.ServiceInstance;
@@ -65,7 +62,7 @@ public class GrayReactiveLoadBalancerClientFilter extends ReactiveLoadBalancerCl
         ServerWebExchangeUtils.addOriginalRequestUrl(exchange, url);
 
         if (log.isTraceEnabled()) {
-            log.trace(ReactiveLoadBalancerClientFilter.class.getSimpleName() + " url before: " + url);
+            log.trace("{} url before: {}", ReactiveLoadBalancerClientFilter.class.getSimpleName(), url);
         }
 
         return choose(exchange).doOnNext(response -> {

@@ -16,36 +16,47 @@ public class CloudResult<T> extends BaseResult {
 	 */
 	private T data;
 
-	public static <T> CloudResult<T> ok() {
-		return restResult(null, StatusCodeEnum.SUCCESS.getCode(), null);
+	public static <T> CloudResult<T> ok(String system) {
+		return restResult(null, StatusCodeEnum.SUCCESS.getCode(), "请求成功",system);
 	}
 
-	public static <T> CloudResult<T> ok(T data) {
-		return restResult(data, StatusCodeEnum.SUCCESS.getCode(), null);
+	public static <T> CloudResult<T> ok(T data,String system) {
+		return restResult(data, StatusCodeEnum.SUCCESS.getCode(), "请求成功",system);
 	}
 
-	public static <T> CloudResult<T> ok(T data, String msg) {
-		return restResult(data, StatusCodeEnum.SUCCESS.getCode(), msg);
+	public static <T> CloudResult<T> ok(T data, String msg,String system) {
+		return restResult(data, StatusCodeEnum.SUCCESS.getCode(), msg,system);
 	}
 
-	public static <T> CloudResult<T> failed() {
-		return restResult(null, StatusCodeEnum.SYSTEM_ERROR.getCode(), null);
+
+	public static <T> CloudResult<T> failed(String system) {
+		return restResult(null, StatusCodeEnum.SYSTEM_ERROR.getCode(), null,system);
 	}
 
-	public static <T> CloudResult<T> failed(String msg) {
-		return restResult(null, StatusCodeEnum.SYSTEM_ERROR.getCode(), msg);
+	public static <T> CloudResult<T> failed(String msg,String system) {
+		return restResult(null, StatusCodeEnum.SYSTEM_ERROR.getCode(), msg,system);
 	}
 
-	public static <T> CloudResult<T> failed(T data) {
-		return restResult(data, StatusCodeEnum.SYSTEM_ERROR.getCode(), null);
+	public static <T> CloudResult<T> failed(T data,String system) {
+		return restResult(data, StatusCodeEnum.SYSTEM_ERROR.getCode(), "请求失败",system);
 	}
 
-	public static <T> CloudResult<T> failed(T data, String msg) {
-		return restResult(data, StatusCodeEnum.SYSTEM_ERROR.getCode(), msg);
+	public static <T> CloudResult<T> failed(T data, String msg,String system) {
+		return restResult(data, StatusCodeEnum.SYSTEM_ERROR.getCode(), msg,system);
 	}
 
+	public static <T> CloudResult<T> restResult(T data, int code, String msg,String system) {
+		CloudResult<T> apiResult = new CloudResult<>();
+		apiResult.setIsOk(code==StatusCodeEnum.SUCCESS.getCode());
+		apiResult.setCode(code);
+		apiResult.setData(data);
+		apiResult.setDesc(msg);
+		apiResult.setSystem(system);
+		return apiResult;
+	}
 	public static <T> CloudResult<T> restResult(T data, int code, String msg) {
 		CloudResult<T> apiResult = new CloudResult<>();
+		apiResult.setIsOk(code==StatusCodeEnum.SUCCESS.getCode());
 		apiResult.setCode(code);
 		apiResult.setData(data);
 		apiResult.setDesc(msg);

@@ -1,5 +1,5 @@
 
-package com.tj.cloud.feign.support;
+package com.tj.cloud.system.route;
 
 import org.springframework.context.ApplicationEvent;
 

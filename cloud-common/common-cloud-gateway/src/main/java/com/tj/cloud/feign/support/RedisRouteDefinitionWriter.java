@@ -1,10 +1,14 @@
 package com.tj.cloud.feign.support;
 
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
 import com.tj.cloud.feign.constant.GatewayConstant;
 import com.tj.cloud.feign.vo.RouteDefinitionVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cloud.gateway.filter.FilterDefinition;
+import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -12,6 +16,7 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -73,7 +78,18 @@ public class RedisRouteDefinitionWriter implements RouteDefinitionRepository {
         List<Object> cacheList = redisTemplate.opsForHash().values(GatewayConstant.ROUTE_KEY);
         List<RouteDefinitionVo> routeDefinitionVoList = new ArrayList<>();
         cacheList.forEach(s ->{
-            routeDefinitionVoList.add((RouteDefinitionVo) s);
+            JSONObject object = JSONObject.from(s);
+            RouteDefinitionVo vo = new RouteDefinitionVo();
+            vo.setRouteName(object.getString("routeName"));
+            vo.setId(object.getString("id"));
+            vo.setUri(URI.create(object.getString("uri")));
+            vo.setOrder(object.getInteger("orderNum"));
+
+            JSONArray filterObj = JSONArray.parseArray(object.getString("filters"));
+            vo.setFilters(filterObj.toList(FilterDefinition.class));
+            JSONArray predicateObj = JSONArray.parseArray(object.getString("predicates"));
+            vo.setPredicates(predicateObj.toList(PredicateDefinition.class));
+            routeDefinitionVoList.add(vo);
         });
         log.debug("redis 中路由定义条数： {}， {}", routeDefinitionVoList.size(), routeDefinitionVoList);
         if (routeList.size() == routeDefinitionVoList.size() && new HashSet<>(routeList).containsAll(routeDefinitionVoList)) {

@@ -1,23 +1,29 @@
-/*
- * Copyright (c) 2003-2021 www.hualongxunda.com/ Inc. All rights reserved.
- * 注意：本内容仅限于深圳华龙讯达信息技术股份有限公司内部传阅，禁止外泄以及用于其他商业目的。
- */
-package com.tj.cloud.feign.config;
 
-import com.tj.cloud.feign.filter.GrayReactiveLoadBalancerClientFilter;
-import com.tj.cloud.feign.rule.GrayLoadBalancer;
-import com.tj.cloud.feign.rule.impl.VersionGrayLoadBalancer;
+package com.tj.cloud.gray.config;
+
+
+import com.tj.cloud.gray.filter.GrayReactiveLoadBalancerClientFilter;
+import com.tj.cloud.gray.rule.GrayLoadBalancer;
+import com.tj.cloud.gray.rule.GrayRoundRobinLoadBalancer;
+import com.tj.cloud.gray.rule.impl.VersionGrayLoadBalancer;
+import feign.RequestInterceptor;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerProperties;
 import org.springframework.cloud.gateway.config.GatewayLoadBalancerProperties;
 import org.springframework.cloud.gateway.config.GatewayReactiveLoadBalancerClientAutoConfiguration;
 import org.springframework.cloud.gateway.filter.ReactiveLoadBalancerClientFilter;
+import org.springframework.cloud.loadbalancer.core.ReactorLoadBalancer;
+import org.springframework.cloud.loadbalancer.core.ServiceInstanceListSupplier;
+import org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.data.redis.core.RedisTemplate;
 
 /**
@@ -42,5 +48,21 @@ public class GrayLoadBalancerClientConfiguration {
     @Bean
     public GrayLoadBalancer grayLoadBalancer(DiscoveryClient discoveryClient, RedisTemplate<Object,Object> redisTemplate) {
         return new VersionGrayLoadBalancer(discoveryClient, redisTemplate);
+    }
+
+
+    @Bean
+    @ConditionalOnMissingBean
+    public ReactorLoadBalancer<ServiceInstance> reactorServiceInstanceLoadBalancer(Environment environment,
+                                                                                   LoadBalancerClientFactory loadBalancerClientFactory) {
+        String name = environment.getProperty(LoadBalancerClientFactory.PROPERTY_NAME);
+        return new GrayRoundRobinLoadBalancer(
+                loadBalancerClientFactory.getLazyProvider(name, ServiceInstanceListSupplier.class), name);
+    }
+
+
+    @Bean
+    public RequestInterceptor grayFeignRequestInterceptor() {
+        return new GrayFeignRequestInterceptor();
     }
 }

@@ -125,4 +125,19 @@ public interface CommonConstant {
 	 */
 	String REQUEST_START_TIME = "REQUEST-START-TIME";
 
+
+
+	String ROUTE_KEY="gl:gateway_route_key";
+
+
+	/**
+	 * 内存reload 时间
+	 */
+	String ROUTE_JVM_RELOAD_TOPIC = "jvm_route_reload_topic";
+
+	/**
+	 * redis 重新加载 路由信息
+	 */
+	String ROUTE_REDIS_RELOAD_TOPIC = "redis_route_reload_topic";
+
 }

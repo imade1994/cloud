@@ -2,7 +2,6 @@ package com.tj.cloud.security.authentication;
 
 import cn.hutool.core.util.ArrayUtil;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
